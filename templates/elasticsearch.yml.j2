@@ -20,6 +20,8 @@ path.data: {{ data_dirs | array_to_str }}
 
 path.logs: {{ log_dir }}
 
+path.repo: {{ repo_dir }}
+
 {% if not "security" in es_xpack_features %}
 xpack.security.enabled: false
 {% endif %}

@@ -24,6 +24,19 @@
   include: elasticsearch-Debian-version-lock.yml
   when: es_version_lock
 
+- name: Debian - Ensure elasticsearch is installed  on OpenVZ
+  apt: name=elasticsearch{% if es_version is defined and es_version != "" %}={{ es_version }}{% endif %} state=present force={{force_install}} allow_unauthenticated={{ 'no' if es_apt_key else 'yes' }} cache_valid_time=86400
+  environment:
+    ES_SKIP_SET_KERNEL_PARAMETERS: 'true'
+  when: es_use_repository and ansible_virtualization_type == "openvz"
+  register: debian_elasticsearch_install_from_repo
+
+- name: add ES_SKIP_SET_KERNEL_PARAMETERS to /etc/environment
+  lineinfile:
+    dest: /etc/environment
+    line: "ES_SKIP_SET_KERNEL_PARAMETERS='true'"
+  when: ansible_virtualization_type is defined and ansible_virtualization_type == "openvz"
+
 - name: Debian - Ensure elasticsearch is installed
   apt: name=elasticsearch{% if es_version is defined and es_version != "" %}={{ es_version }}{% endif %} state=present force={{force_install}} allow_unauthenticated={{ 'no' if es_apt_key else 'yes' }} cache_valid_time=86400
   when: es_use_repository
@@ -35,5 +48,5 @@
 
 - name: Debian - Ensure elasticsearch is installed from downloaded package
   apt: deb=/tmp/elasticsearch-{{ es_version }}.deb
-  when: not es_use_repository
+  when: not es_use_repository and ansible_virtualization_type != "openvz"
   register: elasticsearch_install_from_package

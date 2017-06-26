@@ -8,6 +8,7 @@
     - "{{pid_dir}}"
     - "{{log_dir}}"
     - "{{conf_dir}}"
+    - "{{repo_dir}}"
 
 - name: Create Data Directories
   file: path={{ item }} state=directory owner={{ es_user }} group={{ es_group }}
