@@ -1,5 +1,5 @@
 # This is a fork
-This configuration testing and adpopted only ubntu in openvz container.
+This configuration testing and adopted only for ubuntu on openvz container.
 You need set on server vm.max_map_count=262144
 
     echo "vm.max_map_count=262144" > /etc/sysctl.conf
