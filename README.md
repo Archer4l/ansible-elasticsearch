@@ -4,8 +4,10 @@ You need set on server vm.max_map_count=262144
 
     echo "vm.max_map_count=262144" > /etc/sysctl.conf
     sysctl -p
-or withot permanent
+or just exec
+
     sysctl -w vm.max_map_count=262144
+
 after that you need to restart you container(not reboot CT - **restart CT**)
 
 # ansible-elasticsearch
