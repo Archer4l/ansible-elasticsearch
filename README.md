@@ -1,3 +1,13 @@
+# This is a fork
+This configuration testing and adpopted only ubntu in openvz container.
+You need set on server vm.max_map_count=262144
+
+    echo "vm.max_map_count=262144" > /etc/sysctl.conf
+    sysctl -p
+or withot permanent
+    sysctl -w vm.max_map_count=262144
+after that you need to restart you container(not reboot CT - **restart CT**)
+
 # ansible-elasticsearch
 [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-elastic.elasticsearch-blue.svg)](https://galaxy.ansible.com/elastic/elasticsearch/)
 
