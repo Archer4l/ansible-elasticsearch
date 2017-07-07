@@ -31,6 +31,14 @@
   when: es_use_repository and ansible_virtualization_type == "openvz"
   register: debian_elasticsearch_install_from_repo
 
+- name: enable service httpd and ensure it is not masked
+  systemd:
+    name: systemd-sysctl.service
+    state: stopped
+    enabled: no
+    masked: no
+  when: ansible_virtualization_type is defined and ansible_virtualization_type == "openvz"
+
 - name: add ES_SKIP_SET_KERNEL_PARAMETERS to /etc/environment
   lineinfile:
     dest: /etc/environment
