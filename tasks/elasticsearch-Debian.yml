@@ -37,7 +37,7 @@
     state: stopped
     enabled: no
     masked: no
-  when: ansible_virtualization_type is defined and ansible_virtualization_type == "openvz" and ansible_distribution_version|version_compare(15.04, '<')
+  when: ansible_virtualization_type is defined and ansible_virtualization_type == "openvz" and ansible_lsb.major_release|int < 15
 
 - name: add ES_SKIP_SET_KERNEL_PARAMETERS to /etc/environment
   lineinfile:
